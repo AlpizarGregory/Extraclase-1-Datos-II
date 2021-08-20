@@ -13,7 +13,7 @@ string readFileIntoString(const string& path) {
     auto ss = ostringstream{};
     ifstream input_file(path);
     if (!input_file.is_open()) {
-        cerr << "Could not open files - '"
+        cerr << "Could not open file - '"
              << path << "'" << endl;
         exit(EXIT_FAILURE);
     }
@@ -22,7 +22,7 @@ string readFileIntoString(const string& path) {
 }
 
 int main() {
-    string filename("D:\\OneDrive - Estudiantes ITCR\\TEC\\2021 II Semestre\\Algoritmos y Estructuras de Datos II\\Extraclase 1\\Extraclase-1-Datos-II\\enteros.csv");
+    string filename("enteros.csv");
     string file_contents;
     std::map<int, std::vector<string>> csv_contents;
     char delimiter = ',';
@@ -34,13 +34,35 @@ int main() {
     string record;
 
     int counter = 0;
+    int index = 0;
+    int arr[256];
+    string num1;
+    //string num1, num2, num3, num4, num5, num6, num7;
     while (std::getline(sstream, record)) {
         istringstream line(record);
-        cout << record << endl;
+
+        for (int i = 0; i < 7; ++i) {
+            std::getline(line, num1, delimiter);
+            int numb1 = atoi(num1.c_str());
+            arr[index] = numb1;
+            index++;
+        }
+
+
+       while(std::getline(line, record, delimiter)) {
+
+           items.push_back(record);
+
+       }
+
 
         csv_contents[counter] = items;
         items.clear();
         counter += 1;
+    }
+
+    for (int i = 0; i < 28; ++i) {
+        cout << arr[i] << endl;
     }
 
     exit(EXIT_SUCCESS);
