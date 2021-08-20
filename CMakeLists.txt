@@ -3,4 +3,4 @@ project(Extraclase_1_Datos_II)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Extraclase_1_Datos_II main.cpp reader.cpp reader.h)
+add_executable(Extraclase_1_Datos_II code/main.cpp)
