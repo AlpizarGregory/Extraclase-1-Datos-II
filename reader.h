@@ -1,0 +1,10 @@
+#ifndef EXTRACLASE_1_DATOS_II_READER_H
+#define EXTRACLASE_1_DATOS_II_READER_H
+
+
+class reader {
+
+};
+
+
+#endif //EXTRACLASE_1_DATOS_II_READER_H
