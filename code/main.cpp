@@ -1,20 +1,41 @@
 #include <iostream>
 #include <fstream>
+#include "list.h"
 
 using namespace std;
 
-int main() {
+void readFile(string path) {
     ifstream myFile;
-    myFile.open("D:\\\\OneDrive - Estudiantes ITCR\\\\TEC\\\\2021 II Semestre\\\\Algoritmos y Estructuras de Datos II\\\\Extraclase 1\\\\Extraclase-1-Datos-II\\data\\enteros.csv");
+    list Gregory;
+    myFile.open(path);
 
-    while (myFile.good()) {
-        string line;
-        getline(myFile, line, ',');
-        int intNum = atoi(line.c_str());
-        cout << intNum << endl;
-    }
+    Gregory.addNode(5);
+    Gregory.addNode(16);
+    Gregory.addNode(14);
+    Gregory.addNode(23);
+
+//    while (myFile.good()) {
+//        string line;
+//        getline(myFile, line, ',');
+//        int intNum = atoi(line.c_str());
+//        Gregory.addNode(intNum);
+//        //cout << intNum << endl;
+//    }
+    Gregory.printList();
+
+    Gregory.deleteNode(5);
+
+    Gregory.printList();
 
     myFile.close();
+}
+
+void increaseLinkedList() {
+
+}
+
+int main() {
+    readFile("D:\\\\OneDrive - Estudiantes ITCR\\\\TEC\\\\2021 II Semestre\\\\Algoritmos y Estructuras de Datos II\\\\Extraclase 1\\\\Extraclase-1-Datos-II\\data\\enteros.csv");
 }
 
 // The working code is below
