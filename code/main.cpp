@@ -1,33 +1,54 @@
 #include <iostream>
 #include <fstream>
-#include "list.h"
 
 using namespace std;
 
+//int selectionSort (int sizeOfArray, int unsortedArray[sizeOfArray]) {
+//
+//}
+
+int dataCounter (string path) {
+    ifstream myFile;
+    myFile.open(path);
+    int counter = 0;
+
+    while (myFile.good() && counter < 1536) {
+        string line;
+        getline(myFile, line, ',');
+        int intNum = atoi(line.c_str());
+        counter ++;
+        //        counterList.addNode(intNum);
+        //        cout << intNum << endl;
+    }
+    myFile.close();
+
+    return counter;
+}
+
 void readFile(string path) {
     ifstream myFile;
-    list Gregory;
+    int sizeOfArray = dataCounter(path);
+    int unsortedArray[sizeOfArray];
     myFile.open(path);
+    int index = 0;
 
-    Gregory.addNode(5);
-    Gregory.addNode(16);
-    Gregory.addNode(14);
-    Gregory.addNode(23);
 
-//    while (myFile.good()) {
-//        string line;
-//        getline(myFile, line, ',');
-//        int intNum = atoi(line.c_str());
-//        Gregory.addNode(intNum);
-//        //cout << intNum << endl;
-//    }
-    Gregory.printList();
 
-    Gregory.deleteNode(5);
-
-    Gregory.printList();
+    while (myFile.good() && index < 1536) {
+        string line;
+        getline(myFile, line, ',');
+        int intNum = atoi(line.c_str());
+        unsortedArray[index] = intNum;
+        index ++;
+    }
 
     myFile.close();
+
+    // Segmento de pruebas
+
+    // Fin de segmento de pruebas
+
+
 }
 
 void increaseLinkedList() {
@@ -35,7 +56,11 @@ void increaseLinkedList() {
 }
 
 int main() {
-    readFile("D:\\\\OneDrive - Estudiantes ITCR\\\\TEC\\\\2021 II Semestre\\\\Algoritmos y Estructuras de Datos II\\\\Extraclase 1\\\\Extraclase-1-Datos-II\\data\\enteros.csv");
+//    readFile("D:\\\\OneDrive - Estudiantes ITCR\\\\TEC\\\\2021 II Semestre\\\\Algoritmos y Estructuras de Datos II\\\\Extraclase 1\\\\Extraclase-1-Datos-II\\data\\enteros.csv");
+    for (int i = 0; i < 1000; ++i) {
+        int numb = rand()%9999999;
+        cout << numb << ",";
+    }
 }
 
 // The working code is below
