@@ -6,6 +6,7 @@ sorter::sorter(const std::string &oldLocation, const std::string &newLocation) {
     unsortedPath = oldLocation;
     sortedPath = newLocation;
     sizeOfArray = sorter::dataCounter();
+    pages = pagesCounter();
 }
 
 int sorter::dataCounter() {
@@ -31,6 +32,7 @@ int sorter::dataCounter() {
 void sorter::execute() {
     std::ifstream file;
     int unsortedArray[sorter::sizeOfArray];
+    int sortedArray [sorter::sizeOfArray];
     file.open(unsortedPath);
     int index = 0;
 
@@ -40,36 +42,35 @@ void sorter::execute() {
         int intNum = atoi(line.c_str());
         if (intNum != NULL){
             unsortedArray[index] = intNum;
+            sortedArray[index] = intNum;
         }
         index++;
 
 
     }
 
-    printf("\n");
-
     file.close();
 
-    selectionSort(unsortedArray);
+    selectionSort(sortedArray);
 }
 
-void sorter::selectionSort(int unsortedArray[]) {
+void sorter::selectionSort(int sortedArray[]) {
     int low;
     int temp;
     for (int i = 0; i < (sizeOfArray - 1); ++i) {
         low = i;
         for (int j = i+1; j < sizeOfArray; ++j) {
-            if (unsortedArray[j] < unsortedArray[low]) {
+            if (sortedArray[j] < sortedArray[low]) {
                 low = j;
             }
         }
-        temp = unsortedArray[low];
-        unsortedArray[low] = unsortedArray[i];
-        unsortedArray[i] = temp;
+        temp = sortedArray[low];
+        sortedArray[low] = sortedArray[i];
+        sortedArray[i] = temp;
 
     }
 
-//    newCSVFile(unsortedArray);
+    newCSVFile(sortedArray);
 }
 
 void sorter::newCSVFile(int sortedArray[]) {
@@ -80,4 +81,14 @@ void sorter::newCSVFile(int sortedArray[]) {
     }
 
     file.close();
+}
+
+int sorter::pagesCounter() {
+    int temp1 = sizeOfArray / 256;
+    int temp2 = temp1 * 256;
+    if (temp2 < sizeOfArray) {
+        return temp1 + 1;
+    } else {
+        return temp1;
+    }
 }
