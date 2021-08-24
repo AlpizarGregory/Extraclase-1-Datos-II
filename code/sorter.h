@@ -10,7 +10,8 @@ private:
      std::string unsortedPath;
      std::string sortedPath;
      int sizeOfArray;
-     int dataCounter();
+     int sizeOfFile;
+     int dataCounter(int sizeOption);
      int pages;
      void selectionSort(int unsortedArray[]);
      void newCSVFile(int sortedArray[]);

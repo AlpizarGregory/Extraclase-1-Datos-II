@@ -5,26 +5,38 @@
 sorter::sorter(const std::string &oldLocation, const std::string &newLocation) {
     unsortedPath = oldLocation;
     sortedPath = newLocation;
-    sizeOfArray = sorter::dataCounter();
+    sizeOfArray = sorter::dataCounter(1);
+    sizeOfFile = sorter::dataCounter(2);
     pages = pagesCounter();
 }
 
-int sorter::dataCounter() {
+int sorter::dataCounter(int sizeOption) {
     std::ifstream file;
     file.open(unsortedPath);
     int counter = 0;
 
-    while (file.good() && counter < 1536) {
-        std::string line;
-        std::getline(file, line, ',');
-        if (line != ""){
-            counter ++;
+    if (sizeOption == 1) {
+        while (file.good() && counter < 1536) {
+            std::string line;
+            std::getline(file, line, ',');
+            if (line != ""){
+                counter ++;
+            }
         }
-
+    } else {
+        while (file.good()) {
+            std::string line;
+            std::getline(file, line, ',');
+            if (line != ""){
+                counter ++;
+            }
+        }
     }
+
 
     file.close();
 
+    printf("The counter is: %d and %d\n", counter,sizeOption);
     return counter;
 
 }
