@@ -9,7 +9,6 @@ PagedArray::PagedArray() {
 int& PagedArray::operator[](int pageNum) {
     int firstNumPos = pageNum * 256;
     int lastNumPos = (pageNum + 1) * 256;
-
 }
 
 int * PagedArray::getArray(int number) {

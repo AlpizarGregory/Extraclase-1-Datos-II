@@ -11,16 +11,17 @@ private:
      std::string sortedPath;
      int sizeOfArray;
      int sizeOfFile;
-     int dataCounter(int sizeOption);
      int pages;
-     void selectionSort(int unsortedArray[]);
-     void newCSVFile(int sortedArray[]);
+
+     int dataCounter(int sizeOption, int page1, int page2);
+     void selectionSort(int unsortedArray[], int index);
+     void newCSVFile(int sortedArray[], int index);
      int pagesCounter();
+     int setArraySize(int page1, int page2);
 
 public:
     sorter(const std::string &oldLocation, const std::string &newLocation);
     void execute();
-
 
 };
 

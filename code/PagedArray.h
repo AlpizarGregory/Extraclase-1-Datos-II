@@ -7,7 +7,6 @@ class PagedArray {
 private:
     int& operator[](int pageNum);
 
-
 public:
     PagedArray();
     int * getArray(int number);
