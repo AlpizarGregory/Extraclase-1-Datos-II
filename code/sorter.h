@@ -16,12 +16,10 @@ private:
     int littlestInt;
     int lastPos;
 
-    int dataCounter(int sizeOption, int page1, int page2);
+    int dataCounter();
     void selectionSort(int counter4Ints);
     void newCSVFile(int sizeOfArr);
     int pagesCounter();
-    int setArraySize(int page1, int page2);
-
 
 public:
     sorter(const std::string &oldLocation, const std::string &newLocation);
