@@ -8,6 +8,9 @@ sorter::sorter(const std::string &oldLocation, const std::string &newLocation) {
     sizeOfArray = 0;
     sizeOfFile = sorter::dataCounter(2,0,0);
     pages = pagesCounter();
+    standardArray[0] = 0;
+    littlestInt = 0;
+    lastPos = 0;
 }
 
 int sorter::setArraySize(int page1, int page2) {
@@ -39,6 +42,8 @@ int sorter::dataCounter(int sizeOption, int page1, int page2) {
                 counter4Ints ++;
             }
         }
+
+        printf("The size of sorted file is: %d\n", counter4Ints);
     }
 
 
@@ -52,63 +57,146 @@ int sorter::dataCounter(int sizeOption, int page1, int page2) {
 void sorter::execute() {
     for (int i = 0; i < pages; ++i) {
         std::ifstream file;
-        setArraySize(i, i+2);
-        int unsortedArray[sizeOfArray];
         file.open(unsortedPath);
-        int actualPage = i * 256;
+        //        int actualPage = i;
         int counter4Ints = 0;
         int counter4Pages = 0;
-
         while (file.good()) {
             std::string line;
             std::getline(file, line, ',');
             int intNum = atoi(line.c_str());
-            if (intNum != NULL && counter4Pages>=actualPage && counter4Pages<(actualPage+sizeOfArray)){
-                unsortedArray[counter4Ints] = intNum;
+            if (intNum != NULL && counter4Ints<256 && intNum>littlestInt) {
+                standardArray[counter4Ints] = intNum;
                 counter4Ints++;
+                lastPos++;
+
             }
+
             counter4Pages++;
         }
 
         file.close();
+        for (int j = 0; j < pages; ++j) {
 
-        selectionSort(unsortedArray, i);
 
+            file.open(unsortedPath);
+
+            int index = 0;
+            while (file.good()) {
+                std::string line;
+                std::getline(file, line, ',');
+                int intNum = atoi(line.c_str());
+                if (intNum != NULL && index>=lastPos && counter4Ints<512 && intNum>littlestInt) {
+                    standardArray[counter4Ints] = intNum;
+                    counter4Ints++;
+                    lastPos++;
+                }
+                index++;
+                counter4Pages++;
+            }
+
+            selectionSort(counter4Ints);
+        }
+        littlestInt = standardArray[counter4Ints-1];
+
+        newCSVFile(counter4Ints);
 
     }
+    //    for (int i = 0; i < pages; ++i) {
+    //        std::ifstream file;
+    //        setArraySize(i, i+1);
+    ////        int unsortedArray[sizeOfArray];
+    //        file.open(unsortedPath);
+    //        int actualPage = i * 256;
+    //        int counter4Ints = 0;
+    //        int counter4Pages = 0;
+    //
+    //        while (file.good()) {
+    //            std::string line;
+    //            std::getline(file, line, ',');
+    //            int intNum = atoi(line.c_str());
+    //            if (intNum != NULL && counter4Pages<sizeOfFile && counter4Ints<256 && intNum>littlestInt) {
+    //                standardArray[counter4Ints] = intNum;
+    //                counter4Ints++;
+    //            }
+    ////
+    //            counter4Pages++;
+    //        }
+    //
+    //        file.close();
+    //        int referenceSize = counter4Ints;
+    //
+    //        for (int j = 0; j < pages; ++j) {
+    //            if (j!=i) {
+    //                std::ifstream file;
+    //                setArraySize(j, j+1);
+    //                file.open(unsortedPath);
+    //                int comparisonPage = j * 256;
+    //                counter4Ints = 0;
+    //                counter4Ints = referenceSize;
+    //                counter4Pages = 0;
+    //
+    //                while (file.good()) {
+    //                    std::string line;
+    //                    std::getline(file, line, ',');
+    //                    int intNum = atoi(line.c_str());
+    //                    if (intNum != NULL && counter4Pages>=comparisonPage && counter4Pages<(comparisonPage+sizeOfArray) && intNum>littlestInt){
+    //                        standardArray[counter4Ints] = intNum;
+    //                        counter4Ints++;
+    //                    }
+    //                    counter4Pages++;
+    //                }
+    //
+    //                file.close();
+    //                sizeOfArray = 0;
+    //                sizeOfArray = counter4Ints;
+    //                selectionSort();
+    //            }
+    //            if (j == pages-1) {
+    //                newCSVFile();
+    //                littlestInt = 0;
+    //                littlestInt = standardArray[sizeOfArray-1];
+    //                printf("%d vs %d with size %d, ", littlestInt, standardArray[sizeOfArray-1], sizeOfArray);
+    //            }
+    //        }
+    //
+    //
+    //
+    //
+    //    }
 }
 
-void sorter::selectionSort(int sortedArray[], int index) {
+void sorter::selectionSort(int counter4Ints) {
     int low;
     int temp;
-    for (int i = 0; i < (sizeOfArray - 1); ++i) {
+    for (int i = 0; i < (counter4Ints - 1); ++i) {
         low = i;
-        for (int j = i+1; j < sizeOfArray; ++j) {
-            if (sortedArray[j] < sortedArray[low]) {
+        for (int j = i+1; j < counter4Ints; ++j) {
+            if (standardArray[j] < standardArray[low]) {
                 low = j;
             }
         }
-        temp = sortedArray[low];
-        sortedArray[low] = sortedArray[i];
-        sortedArray[i] = temp;
+        temp = standardArray[low];
+        standardArray[low] = standardArray[i];
+        standardArray[i] = temp;
 
     }
 
-    newCSVFile(sortedArray, index);
+    //    newCSVFile();
 }
 
-void sorter::newCSVFile(int sortedArray[], int index) {
+void sorter::newCSVFile(int sizeOfArr) {
     std::ofstream file;
     file.open(sortedPath, std::ios_base::app);
-    if (index == 0) {
-        for (int i = 0; i < sizeOfArray; ++i) {
-            file << sortedArray[i] << ",";
-        }
-    } else {
-        for (int i = 256; i < sizeOfArray; ++i) {
-            file << sortedArray[i] << ",";
-        }
+    //    if (index == 0) {
+    for (int i = 0; i < sizeOfArr; ++i) {
+        file << standardArray[i] << ",";
     }
+    //    } else {
+    //        for (int i = 256; i < sizeOfArray; ++i) {
+    //            file << sortedArray[i] << ",";
+    //        }
+    //    }
 
     file.close();
 }

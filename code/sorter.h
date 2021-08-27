@@ -7,17 +7,21 @@
 
 class sorter {
 private:
-     std::string unsortedPath;
-     std::string sortedPath;
-     int sizeOfArray;
-     int sizeOfFile;
-     int pages;
+    std::string unsortedPath;
+    std::string sortedPath;
+    int sizeOfArray;
+    int sizeOfFile;
+    int pages;
+    int standardArray[512];
+    int littlestInt;
+    int lastPos;
 
-     int dataCounter(int sizeOption, int page1, int page2);
-     void selectionSort(int unsortedArray[], int index);
-     void newCSVFile(int sortedArray[], int index);
-     int pagesCounter();
-     int setArraySize(int page1, int page2);
+    int dataCounter(int sizeOption, int page1, int page2);
+    void selectionSort(int counter4Ints);
+    void newCSVFile(int sizeOfArr);
+    int pagesCounter();
+    int setArraySize(int page1, int page2);
+
 
 public:
     sorter(const std::string &oldLocation, const std::string &newLocation);
