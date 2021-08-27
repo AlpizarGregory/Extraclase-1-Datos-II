@@ -9,7 +9,7 @@ sorter::sorter(const std::string &oldLocation, const std::string &newLocation) {
     sizeOfFile = sorter::dataCounter(2,0,0);
     pages = pagesCounter();
     standardArray[0] = 0;
-    littlestInt = 0;
+    littlestInt = -1;
     lastPos = 0;
 }
 
@@ -43,7 +43,6 @@ int sorter::dataCounter(int sizeOption, int page1, int page2) {
             }
         }
 
-        printf("The size of sorted file is: %d\n", counter4Ints);
     }
 
 
@@ -60,46 +59,58 @@ void sorter::execute() {
         file.open(unsortedPath);
         //        int actualPage = i;
         int counter4Ints = 0;
-        int counter4Pages = 0;
-        while (file.good()) {
+//        int counter4Pages = 0;
+        while (file.good() && counter4Ints<256) {
             std::string line;
             std::getline(file, line, ',');
             int intNum = atoi(line.c_str());
             if (intNum != NULL && counter4Ints<256 && intNum>littlestInt) {
                 standardArray[counter4Ints] = intNum;
                 counter4Ints++;
-                lastPos++;
+
 
             }
 
-            counter4Pages++;
+            lastPos++;
+//            counter4Pages++;
         }
 
-        file.close();
+//        file.close();
         for (int j = 0; j < pages; ++j) {
 
 
-            file.open(unsortedPath);
+//            file.open(unsortedPath);
 
-            int index = 0;
-            while (file.good()) {
+//            int index = 0;
+            int arrayLenght = counter4Ints;
+            while (file.good() && arrayLenght<512) {
                 std::string line;
                 std::getline(file, line, ',');
                 int intNum = atoi(line.c_str());
-                if (intNum != NULL && index>=lastPos && counter4Ints<512 && intNum>littlestInt) {
-                    standardArray[counter4Ints] = intNum;
-                    counter4Ints++;
-                    lastPos++;
+//                if (intNum != NULL && index>=lastPos) {
+                if (intNum != NULL) {
+                    if (arrayLenght<512 && intNum>littlestInt){
+                        standardArray[arrayLenght] = intNum;
+                        arrayLenght++;
+                    }
+//                    lastPos++;
+
                 }
-                index++;
-                counter4Pages++;
+//                index++;
+//                counter4Pages++;
             }
 
-            selectionSort(counter4Ints);
-        }
-        littlestInt = standardArray[counter4Ints-1];
+            sizeOfArray = arrayLenght;
+            selectionSort(arrayLenght);
+//            file.close();
 
-        newCSVFile(counter4Ints);
+        }
+        file.close();
+        printf("%d, ", littlestInt);
+        littlestInt = standardArray[sizeOfArray-1];
+//        printf("\n%d, %d, %d, %d", standardArray[counter4Ints-4],standardArray[counter4Ints-3],standardArray[counter4Ints-2],standardArray[counter4Ints-1]);
+
+        newCSVFile(sizeOfArray);
 
     }
     //    for (int i = 0; i < pages; ++i) {
