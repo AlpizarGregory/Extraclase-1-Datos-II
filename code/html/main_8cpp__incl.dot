@@ -10,9 +10,4 @@ digraph "main.cpp"
   Node3 [label="sorter.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$sorter_8h.html",tooltip="Lee, ordena y reescribe los números."];
   Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node4 [label="fstream",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node5 [label="PagedArray.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_paged_array_8h.html",tooltip=" "];
-  Node5 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node6 [label="stringSpliter.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$string_spliter_8h.html",tooltip=" "];
 }
